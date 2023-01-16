@@ -21,22 +21,17 @@ def main():
                 else:
                     places = []
                     zeros_ones = {'0': 0, '1': 1}
-                    if not row and not col:
-                        places = [tuple([row, col]), tuple([n - row - 1, col]), tuple([row, n - col - 1]), tuple([n - row - 1, n - col - 1]), ]
-                    else:
-                        places.append(tuple([row, col]))
-                        places.append(tuple([n - row - 1, col]))
-                        places.append(tuple(reversed(places[0])))
-                        places.append(tuple(reversed(places[1])))
+
+                    places.append(tuple([row, col]))
+                    places.append(tuple([n - row - 1, col]))
+                    places.append(tuple(reversed(places[0])))
+                    places.append(tuple(reversed(places[1])))
+                    
                     for p in places:
                         zeros_ones[grid[p[0]][p[1]]] += 1
                         seen.add(p)
-
-                    m = float('inf')
-                    for value in zeros_ones.values():
-                        m = min(m, value)
                     
-                    answer[-1] += m
+                    answer[-1] += min(list(zeros_ones.values()))
     
     for ans in answer:
         print(ans)
