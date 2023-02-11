@@ -1,25 +1,25 @@
 size = int(input())
-array = list(map(int, input().split()))
+arr = list(map(int, input().split()))
 
 l, r = 0, 0
-used = False
+reversed_segments = 0
 
-i = 1
-while i < size:
-    if array[i] < array[i - 1]:
-        if not used:
-            used = True
-            l, r = i - 1, i
-            while r < size and array[r] < array[r - 1]:
-                r += 1
+i = 0
+while i < size - 1:
+    if arr[i + 1] > arr[i]:
+        l, r = i, i
+        while r < size and arr[r + 1] > arr[r]:
+            r += 1
+        reversed_segments += 1
+        if r == size - 1:
             i = r
         else:
-            print("no")
-            exit()
+            i = r + 1
     else:
         i += 1
-
-print("yes")
-print(l + 1, r)
-exit()
-
+            
+if reversed_segments < 2:
+    print("yes")
+    print(l, r) if reversed_segments else (1, 1)
+else:
+    print("no")
