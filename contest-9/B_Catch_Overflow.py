@@ -1,31 +1,29 @@
 def solve():
-    magic_number = (2 ** 31 - 1)
+    MAGIC_NUMBER = (2 ** 31 - 1)
+
     lines = int(input())
-    ops = [input() for _ in range(lines)]
 
+    stack = [1]
     x = 0
-    in_for_loop = []
 
-    for op in ops:
-        if op[0] == 'f':
-            new_loop = (in_for_loop[-1][0] if in_for_loop else 1) * int(list(op.split())[1])
-            minimum = min(new_loop, magic_number)
+    for _ in range(lines):
+        op = input()
 
-            in_for_loop.append([minimum, new_loop == minimum])
-        elif op[0] == 'a':
-            if in_for_loop:
-                if (in_for_loop[-1][0] == magic_number - x and not in_for_loop[-1][1]) or (in_for_loop[-1][0] > magic_number):
-                    print("OVERFLOW!!!")
-                    return
+        if op.startswith("for"):
+            new_iterations = int(op.split(" ")[1])
+            stack.append( min(stack[-1] * new_iterations, MAGIC_NUMBER + 1) )
 
-                x += in_for_loop[-1][0]              
-            else:
-                x += 1
+        elif op == "add":
+            x += stack[-1]
 
+            if x > MAGIC_NUMBER:
+                print("OVERFLOW!!!")
+                return
+            
         else:
-            in_for_loop.pop()
+            stack.pop()
+    
     print(x)
-    return
 
 if __name__ == "__main__":
     solve()
