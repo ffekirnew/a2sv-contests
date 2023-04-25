@@ -1,3 +1,5 @@
+
+
 def solve():
     n, m, k = list(map(int, input().split()))
     players = [int(input()) for _ in range(m + 1)]
