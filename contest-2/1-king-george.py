@@ -7,13 +7,11 @@ if __name__ == "__main__":
         answer = []
         for idx in range(2):
             answer.append(word[idx])
-        for char in '... ':
+        for char in "... ":
             answer.append(char)
         for idx in range(len(word)):
             answer.append(word[idx])
-        answer.append('?')
+        answer.append("?")
         answers.append("".join(answer))
     for answer in answers:
         print(answer)
-
-
